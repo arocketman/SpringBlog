@@ -1,12 +1,13 @@
 package com.arocketman.github.controllers;
 
+import com.arocketman.github.config.CustomUserDetails;
 import com.arocketman.github.entities.Post;
+import com.arocketman.github.entities.User;
 import com.arocketman.github.service.PostService;
+import com.arocketman.github.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.List;
@@ -16,6 +17,9 @@ public class BlogController {
 
     @Autowired
     private PostService postService;
+
+    @Autowired
+    private UserService userService;
 
     @GetMapping(value = "/")
     public String index(){
@@ -28,10 +32,18 @@ public class BlogController {
     }
 
     @PostMapping(value="/post")
-    public void publishPost(@RequestBody Post post){
+    public String publishPost(@RequestBody Post post){
+        CustomUserDetails userDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if(post.getDateCreated() == null)
             post.setDateCreated(new Date());
+        post.setCreator(userService.getUser(userDetails.getUsername()));
         postService.insert(post);
+        return "Post was published";
+    }
+
+    @GetMapping(value="/posts/{username}")
+    public List<Post> postsByUser(@PathVariable String username){
+        return postService.findByUser(userService.getUser(username));
     }
 
 }

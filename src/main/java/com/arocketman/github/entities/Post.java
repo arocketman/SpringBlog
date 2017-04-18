@@ -14,7 +14,8 @@ public class Post {
     private String body;
     private Date dateCreated;
 
-
+    @ManyToOne
+    private User creator;
 
     public Post() {
     }
@@ -49,5 +50,13 @@ public class Post {
 
     public void setDateCreated(Date dateCreated) {
         this.dateCreated = dateCreated;
+    }
+
+    public User getCreator() {
+        return creator;
+    }
+
+    public void setCreator(User creator) {
+        this.creator = creator;
     }
 }

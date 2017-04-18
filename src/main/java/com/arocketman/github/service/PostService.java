@@ -1,6 +1,7 @@
 package com.arocketman.github.service;
 
 import com.arocketman.github.entities.Post;
+import com.arocketman.github.entities.User;
 import com.arocketman.github.repositories.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,5 +20,9 @@ public class PostService {
 
     public void insert(Post post) {
         postRepository.save(post);
+    }
+
+    public List<Post> findByUser(User user){
+        return postRepository.findByCreatorId(user.getId());
     }
 }
