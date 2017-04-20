@@ -41,4 +41,9 @@ public class BlogController {
         return postService.findByUser(userService.getUser(username));
     }
 
+    @DeleteMapping(value = "/post/{id}")
+    public boolean deletePost(@PathVariable Long id){
+        return postService.deletePost(id);
+    }
+
 }

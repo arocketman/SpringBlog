@@ -25,4 +25,12 @@ public class PostService {
     public List<Post> findByUser(User user){
         return postRepository.findByCreatorId(user.getId());
     }
+
+    public boolean deletePost(Long postId){
+        Post thePost = postRepository.findOne(postId);
+        if(thePost == null)
+            return false;
+        postRepository.delete(postId);
+        return true;
+    }
 }

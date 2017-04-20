@@ -1,6 +1,7 @@
 package com.arocketman.github.config;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
@@ -19,7 +20,8 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/","/home","/register","/login").permitAll()
                 .antMatchers("/private/**").authenticated()
-                .antMatchers("/post").authenticated();
+                .antMatchers("/post").authenticated()
+                .antMatchers(HttpMethod.DELETE , "/post/**").hasAuthority("ROLE_ADMIN");
     }
 
 

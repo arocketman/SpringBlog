@@ -3,16 +3,23 @@
 <head>
     <meta charset="UTF-8" />
     <title>Index</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css" />
 </head>
 <body>
 <div id="root" class="container">
+    <ul id="navMenu">
+        <li><a href="/">Home</a></li>
+        <li><a href="/login">Login</a></li>
+        <li><a href="/categories">Categories</a></li>
+    </ul>
     <div class="row">
         <div class="twelve columns">
             <h1>My blog</h1>
             <ul>
                 <li v-for="post in posts">
                     <h3>{{post.title}}</h3>
+                    <h6>Created by : {{post.creator.username}}</h6>
                     <p>{{post.body}}</p>
                     <hr />
                 </li>

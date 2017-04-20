@@ -1,0 +1,12 @@
+li {
+    list-style: none;
+}
+
+#navMenu{
+    text-align: right;
+    margin-bottom: 0;
+}
+
+#navMenu li{
+    display:inline-block;
+}

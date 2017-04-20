@@ -33,7 +33,6 @@ public class BlogApplication {
 	 */
 	@Autowired
 	public void authenticationManager(AuthenticationManagerBuilder builder, UserRepository repository, UserService userService) throws Exception {
-		//Setup a default user if db is empty
 		if (repository.count()==0)
 			userService.save(new User("admin", "adminPassword", Arrays.asList(new Role("USER"), new Role("ACTUATOR") , new Role("ADMIN"))));
 		builder.userDetailsService(userDetailsService(repository)).passwordEncoder(passwordEncoder);
