@@ -1,10 +1,43 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
-    <title>My blog</title>
+    <meta charset="UTF-8" />
+    <title>Index</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css" />
 </head>
 <body>
-<h1>My blog</h1>
+<div id="root" class="container">
+    <div class="row">
+        <div class="twelve columns">
+            <h1>My blog</h1>
+            <ul>
+                <li v-for="post in posts">
+                    <h3>{{post.title}}</h3>
+                    <p>{{post.body}}</p>
+                    <hr />
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
 </body>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://vuejs.org/js/vue.js"></script>
+<script>
+    var app = new Vue({
+        el: '#root',
+        data : {posts: []},
+        mounted(){
+            this.fetchPosts();
+        },
+        methods: {
+            fetchPosts(){
+                axios.get("/posts").then(function(response){
+                    this.posts = response.data;
+                }.bind(this));
+            }
+        }
+
+    });
+</script>
 </html>
