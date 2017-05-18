@@ -1,18 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="UTF-8" />
-    <title>Index</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css" />
-</head>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="fragments/header :: header('Blog index')" />
 <body>
+<div th:replace="fragments/nav :: nav"></div>
 <div id="root" class="container">
-    <ul id="navMenu">
-        <li><a href="/">Home</a></li>
-        <li><a href="/login">Login</a></li>
-        <li><a href="/categories">Categories</a></li>
-    </ul>
     <div class="row">
         <div class="twelve columns">
             <h1>My blog</h1>
@@ -28,8 +19,7 @@
     </div>
 </div>
 </body>
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<script src="https://vuejs.org/js/vue.js"></script>
+<div th:replace="fragments/footer :: foot"></div>
 <script>
     var app = new Vue({
         el: '#root',

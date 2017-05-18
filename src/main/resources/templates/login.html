@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head th:replace="fragments/header :: header('Login')" />
+<body>
+<div th:replace="fragments/nav :: nav"></div>
+<div id="root" class="container">
+    <div class="row">
+        <div class="twelve columns">
+            <h4 id="loginHeader">Login</h4>
+            <div class="six columns align-center">
+                <label for="username">Username</label>
+                <input v-model="username" class="u-full-width" type="text" placeholder="yourUsername" id="username"/>
+                <label for="password">Password</label>
+                <input v-model="password" class="u-full-width" type="password" id="password"/>
+                <input class="u-full-width button-primary" type="submit" v-on:click="login" value="Submit" />
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<div th:replace="fragments/footer :: foot"></div>
+<script>
+    var app = new Vue({
+        el: '#root',
+        data:{
+            username: '',
+            password: '',
+        },
+        methods: {
+            login(){
+                var params = new URLSearchParams();
+                params.append('grant_type', 'password');
+                params.append('username', this.username);
+                params.append('password',this.password);
+                axios({
+                    method:'post',
+                    url:'oauth/token',
+                    auth:{username:'my-trusted-client',password:'secret'},
+                    headers: {"Content-type": "application/x-www-form-urlencoded; charset=utf-8"},
+                    data:params
+                });
+            }
+        }
+    });
+</script>
+</html>
