@@ -38,6 +38,9 @@
                     auth:{username:'my-trusted-client',password:'secret'},
                     headers: {"Content-type": "application/x-www-form-urlencoded; charset=utf-8"},
                     data:params
+                }).then(function(response){
+                    document.cookie = "access_token=" + response.data.access_token + ";path=/";
+                    document.location.replace("/");
                 });
             }
         }

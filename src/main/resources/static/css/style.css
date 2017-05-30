@@ -3,7 +3,6 @@ li {
 }
 
 #navMenu{
-    text-align: right;
     margin-bottom: 0;
 }
 
@@ -19,4 +18,9 @@ li {
 .align-center{
     float:none;
     margin: 0 auto;
+}
+
+#loggedIn{
+    display:inline;
+    float:right;
 }
