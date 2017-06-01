@@ -2,24 +2,27 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head th:replace="fragments/header :: header('Blog index')" />
 <body>
-<div th:replace="fragments/nav :: nav"></div>
-<div id="root" class="container">
-    <div class="row">
-        <div class="twelve columns">
-            <h1>My blog</h1>
-            <ul>
-                <li v-for="post in posts">
-                    <h3>{{post.title}}</h3>
-                    <h6>Created by : {{post.creator.username}}</h6>
-                    <p>{{post.body}}</p>
-                    <hr />
-                </li>
-            </ul>
+<div id="root">
+    <div th:replace="fragments/nav :: nav"></div>
+    <div class="container">
+        <div class="row">
+            <div class="twelve columns">
+                <h1>My blog</h1>
+                <ul>
+                    <li v-for="post in posts">
+                        <h3>{{post.title}}</h3>
+                        <h6>Created by : {{post.creator.username}}</h6>
+                        <p>{{post.body}}</p>
+                        <hr />
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 </div>
 </body>
 <div th:replace="fragments/footer :: foot"></div>
+
 <script>
     var app = new Vue({
         el: '#root',

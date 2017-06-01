@@ -2,17 +2,19 @@
 <html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
 <head th:replace="fragments/header :: header('Login')" />
 <body>
+<div id="root">
 <div th:replace="fragments/nav :: nav"></div>
-<div id="root" class="container">
-    <div class="row">
-        <div class="twelve columns">
-            <h4 id="loginHeader">Login</h4>
-            <div class="six columns align-center">
-                <label for="username">Username</label>
-                <input v-model="username" class="u-full-width" type="text" placeholder="yourUsername" id="username"/>
-                <label for="password">Password</label>
-                <input v-model="password" class="u-full-width" type="password" id="password"/>
-                <input class="u-full-width button-primary" type="submit" v-on:click="login" value="Submit" />
+    <div class="container">
+        <div class="row">
+            <div class="twelve columns">
+                <h4 id="loginHeader">Login</h4>
+                <div class="six columns align-center">
+                    <label for="username">Username</label>
+                    <input v-model="username" class="u-full-width" type="text" placeholder="yourUsername" id="username"/>
+                    <label for="password">Password</label>
+                    <input v-model="password" class="u-full-width" type="password" id="password"/>
+                    <input class="u-full-width button-primary" type="submit" v-on:click="login" value="Submit" />
+                </div>
             </div>
         </div>
     </div>
@@ -22,6 +24,11 @@
 <script>
     var app = new Vue({
         el: '#root',
+        mounted() {
+            Event.$on('logged-in',function(){
+                window.location.replace("/");
+            })
+        },
         data:{
             username: '',
             password: '',
