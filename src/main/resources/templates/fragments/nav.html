@@ -1,7 +1,7 @@
 <div th:fragment="nav" class="container">
     <div class="row">
         <div class="twelve columns">
-            <p id="loggedIn">{{logged_in_msg}}</p>
+            <p id="loggedIn">{{logged_in_msg}} <span v-on:click="logOut" v-show="isLoggedIn"><b color="blue">Logout</b></span></p>
             <ul id="navMenu">
                 <li><a href="/">Home</a></li>
                 <li><a href="/login">Login</a></li>

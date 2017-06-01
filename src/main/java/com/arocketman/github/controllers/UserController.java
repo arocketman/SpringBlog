@@ -20,6 +20,10 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private TokenStore tokenStore;
+
+
     @PostMapping(value = "/register")
     public String register(@RequestBody UserRegistration userRegistration){
         if(!userRegistration.getPassword().equals(userRegistration.getPasswordConfirmation()))
@@ -40,8 +44,6 @@ public class UserController {
     public List<User> users(){
         return userService.getAllUsers();
     }
-    @Autowired
-    private TokenStore tokenStore;
 
     @GetMapping(value = "/logouts")
     public void logout(@RequestParam (value = "access_token") String accessToken){
