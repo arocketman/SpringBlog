@@ -2,11 +2,11 @@ li {
     list-style: none;
 }
 
-#navMenu{
+.navMenu{
     margin-bottom: 0;
 }
 
-#navMenu li{
+.navMenu li{
     display:inline-block;
 }
 

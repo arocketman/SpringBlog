@@ -1,17 +1,60 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="UTF-8" />
-    <title>Register</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css">
-</head>
+<head th:replace="fragments/header :: header('Register')" />
 <body>
-<div id="root" class="container">
-    <div class="row">
-        <div class="twelve columns">Eleven</div>
+<div id="root">
+    <div th:replace="fragments/nav :: nav"></div>
+    <div class="container">
+        <div class="row">
+            <div class="twelve columns">
+                <h4 id="loginHeader">Login</h4>
+                <div class="six columns align-center">
+                    <label for="username">Username</label>
+                    <input v-model="username" class="u-full-width" type="text" placeholder="yourUsername" id="username"/>
+                    <label for="password">Password</label>
+                    <input v-model="password" class="u-full-width" type="password" id="password"/>
+                    <label for="passwordConfirm">Confirm password</label>
+                    <input v-model="passwordConfirm" class="u-full-width" type="password" id="passwordConfirm"/>
+                    <input class="u-full-width button-primary" type="submit" v-on:click="register" value="Submit" />
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 </body>
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<script src="https://vuejs.org/js/vue.js"></script>
+<div th:replace="fragments/footer :: foot"></div>
+<script>
+    var app = new Vue({
+        el: '#root',
+        mounted() {
+            Event.$on('logged-in',function(){
+                window.location.replace("/");
+            })
+        },
+        data:{
+            username: '',
+            password: '',
+            passwordConfirm: ''
+        },
+        methods: {
+            register(){
+                var params = new URLSearchParams();
+                params.append('username', this.username);
+                params.append('password',this.password);
+                params.append('passwordConfirmation',this.passwordConfirm);
+                if(this.password != this.passwordConfirm){
+                    alert("Passwords do not match");
+                    return;
+                }
+                axios({
+                    method:'post',
+                    url:'register',
+                    data:{username:this.username,password:this.password,passwordConfirmation:this.passwordConfirm}
+                }).then(function(response){
+                    document.location.replace("/");
+                });
+            }
+        }
+    });
+</script>
 </html>

@@ -14,11 +14,12 @@ function delete_cookie(name) {
 window.Event = new Vue();
 
 Vue.component('login-component',{
-    template: '<a style="float:right" v-if="!isLoggedIn" href="/login">Login</a><p v-else id="loggedIn">{{logged_in_msg}} <span v-on:click="logOut" v-show="isLoggedIn"><b color="blue">Logout</b></span></p>',
+    template: '<ul class="navMenu" v-if="!isLoggedIn" style="float:right"><li style="margin-right:5px"><a href="/login">Login</a></li><li><a href="/registration">Register</a></li></ul>' +
+    '<p v-else id="loggedIn">{{logged_in_msg}} <span v-on:click="logOut" v-show="isLoggedIn"><b color="blue">Logout</b></span></p>',
     data: function(){return {logged_in_msg : "",
         isLoggedIn : false}},
     mounted(){
-        if(! (getCookie("access_token") == null)){
+        if(! (getCookie("access_token") === null)){
             axios.get("/getUsername?access_token=" + getCookie("access_token"))
                 .then(function(response){
                     this.logged_in_msg = "Welcome back , " + response.data;
