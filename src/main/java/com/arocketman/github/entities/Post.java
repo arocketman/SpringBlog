@@ -17,6 +17,8 @@ public class Post {
     @ManyToOne
     private User creator;
 
+
+
     public Post() {
     }
 

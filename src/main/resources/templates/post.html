@@ -16,6 +16,11 @@
                         <hr />
                     </li>
                 </ul>
+                <div v-if="isLoggedIn()">
+                    <label for="comment">Add a Comment</label>
+                    <textarea class="u-full-width" placeholder="Comment.." id="comment"></textarea>
+                    <input class="u-full-width button-primary" type="submit" v-on:click="doComment" value="Submit" />
+                </div>
             </div>
         </div>
     </div>
@@ -36,6 +41,9 @@
                 axios.get("/the_post/" + splitted[splitted.length-1]).then(function(response){
                     this.post = response.data;
                 }.bind(this));
+            },
+            isLoggedIn(){
+                return window.Event.isLoggedIn;
             }
         }
 

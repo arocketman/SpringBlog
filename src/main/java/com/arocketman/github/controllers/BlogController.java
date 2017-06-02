@@ -1,8 +1,11 @@
 package com.arocketman.github.controllers;
 
 import com.arocketman.github.config.CustomUserDetails;
+import com.arocketman.github.entities.Comment;
 import com.arocketman.github.entities.Post;
 import com.arocketman.github.entities.User;
+import com.arocketman.github.pojos.CommentPojo;
+import com.arocketman.github.service.CommentService;
 import com.arocketman.github.service.PostService;
 import com.arocketman.github.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +23,9 @@ public class BlogController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private CommentService commentService;
 
     @GetMapping(value="/posts")
     public List<Post> posts(){
@@ -49,6 +55,21 @@ public class BlogController {
     @DeleteMapping(value = "/post/{id}")
     public boolean deletePost(@PathVariable Long id){
         return postService.deletePost(id);
+    }
+
+    @GetMapping(value = "/comments/{postId}")
+    public List<Comment> getComments(@PathVariable Long postId){
+        return commentService.getComments(postId);
+    }
+
+    @PostMapping(value = "/comments")
+    public boolean postComment(@RequestBody CommentPojo comment){
+        Post post = postService.find(comment.getPostId());
+        if(post == null)
+            return false;
+
+        commentService.comment(new Comment(comment.getText(),post));
+        return true;
     }
 
 }
