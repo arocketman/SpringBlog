@@ -38,11 +38,7 @@
         },
         methods: {
             register(){
-                var params = new URLSearchParams();
-                params.append('username', this.username);
-                params.append('password',this.password);
-                params.append('passwordConfirmation',this.passwordConfirm);
-                if(this.password != this.passwordConfirm){
+                if(this.password !== this.passwordConfirm){
                     alert("Passwords do not match");
                     return;
                 }

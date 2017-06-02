@@ -33,4 +33,8 @@ public class PostService {
         postRepository.delete(postId);
         return true;
     }
+
+    public Post getPost(Long id) {
+        return postRepository.findOne(id);
+    }
 }

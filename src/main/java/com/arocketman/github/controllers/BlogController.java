@@ -26,6 +26,11 @@ public class BlogController {
         return postService.getAllPosts();
     }
 
+    @GetMapping(value="/the_post/{id}")
+    public Post getPostById(@PathVariable Long id){
+        return postService.getPost(id);
+    }
+
     @PostMapping(value="/post")
     public String publishPost(@RequestBody Post post){
         CustomUserDetails userDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();

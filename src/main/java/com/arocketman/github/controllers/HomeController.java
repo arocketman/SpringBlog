@@ -21,4 +21,9 @@ public class HomeController {
         return "login";
     }
 
+    @GetMapping(value="post/{id}")
+    public String singlePost(){
+        return "post";
+    }
+
 }
