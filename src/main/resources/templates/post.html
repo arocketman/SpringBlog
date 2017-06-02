@@ -16,9 +16,19 @@
                         <hr />
                     </li>
                 </ul>
+                <div class="comments">
+                    <h2>Comments</h2>
+                    <ul>
+                        <li v-for="comment in comments">
+                            <h6>Posted by : {{comment.creator.username}}</h6>
+                            <p>{{comment.text}}</p>
+                            <hr />
+                        </li>
+                    </ul>
+                </div>
                 <div v-if="isLoggedIn()">
                     <label for="comment">Add a Comment</label>
-                    <textarea class="u-full-width" placeholder="Comment.." id="comment"></textarea>
+                    <textarea v-model="commentText" class="u-full-width" placeholder="Comment.." id="comment"></textarea>
                     <input class="u-full-width button-primary" type="submit" v-on:click="doComment" value="Submit" />
                 </div>
             </div>
@@ -31,19 +41,37 @@
 <script>
     var app = new Vue({
         el: '#root',
-        data : {post: {}},
+        data : {post: {}, commentText: '', comments: []},
         mounted(){
             this.fetchPosts();
+            this.fetchComments();
         },
         methods: {
             fetchPosts(){
-                var splitted = window.location.href.split('/');
-                axios.get("/the_post/" + splitted[splitted.length-1]).then(function(response){
+                axios.get("/the_post/" + this.getPostId()).then(function(response){
                     this.post = response.data;
                 }.bind(this));
             },
             isLoggedIn(){
                 return window.Event.isLoggedIn;
+            },
+            doComment(){
+                axios({
+                    method:'post',
+                    url:'postComment?access_token=' + getCookie("access_token"),
+                    data:{text:this.commentText,postId:this.post.id}
+                }).then(function(response){
+                    this.fetchComments();
+                }.bind(this));
+            },
+            fetchComments(){
+                axios.get("/comments/" + this.getPostId()).then(function(response){
+                    this.comments = response.data;
+                }.bind(this));
+            },
+            getPostId(){
+                var splitted = window.location.href.split('/');
+                return splitted[splitted.length-1];
             }
         }
 

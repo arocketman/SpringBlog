@@ -15,15 +15,20 @@ public class Comment {
     private Long Id;
 
     private String text;
+
     @ManyToOne
     private Post post;
+
+    @ManyToOne
+    private User creator;
 
     public Comment() {
     }
 
-    public Comment(String text, Post post) {
+    public Comment(String text, Post post, User creator) {
         this.text = text;
         this.post = post;
+        this.creator = creator;
     }
 
     public Long getId() {
@@ -48,5 +53,13 @@ public class Comment {
 
     public void setPost(Post post) {
         this.post = post;
+    }
+
+    public User getCreator() {
+        return creator;
+    }
+
+    public void setCreator(User creator) {
+        this.creator = creator;
     }
 }

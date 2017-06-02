@@ -57,18 +57,26 @@ public class BlogController {
         return postService.deletePost(id);
     }
 
+    @DeleteMapping(value = "/comment/{id}")
+    public boolean deleteComment(@PathVariable Long id){
+        return commentService.deletePost(id);
+    }
+
+
     @GetMapping(value = "/comments/{postId}")
     public List<Comment> getComments(@PathVariable Long postId){
         return commentService.getComments(postId);
     }
 
-    @PostMapping(value = "/comments")
+    @PostMapping(value = "/post/postComment")
     public boolean postComment(@RequestBody CommentPojo comment){
         Post post = postService.find(comment.getPostId());
-        if(post == null)
+        CustomUserDetails userDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User creator = userService.getUser(userDetails.getUsername());
+        if(post == null || creator == null)
             return false;
 
-        commentService.comment(new Comment(comment.getText(),post));
+        commentService.comment(new Comment(comment.getText(),post,creator));
         return true;
     }
 

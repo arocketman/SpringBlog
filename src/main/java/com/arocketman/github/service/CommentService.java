@@ -21,4 +21,9 @@ public class CommentService {
     public void comment(Comment comment) {
         commentRepository.save(comment);
     }
+
+    public boolean deletePost(Long id) {
+        commentRepository.delete(id);
+        return true;
+    }
 }
