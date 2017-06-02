@@ -9,7 +9,7 @@
             <div class="twelve columns">
                 <h1>My blog</h1>
                 <ul>
-                    <li>
+                    <li v-if="post">
                         <h3>{{post.title}}</h3>
                         <h6>Created by : {{post.creator.username}}</h6>
                         <p>{{post.body}}</p>
@@ -20,9 +20,8 @@
                     <h2>Comments</h2>
                     <ul>
                         <li v-for="comment in comments">
-                            <h6>Posted by : {{comment.creator.username}}</h6>
+                            <h6>Posted by : <b>{{comment.creator.username}}</b></h6>
                             <p>{{comment.text}}</p>
-                            <hr />
                         </li>
                     </ul>
                 </div>
@@ -41,8 +40,8 @@
 <script>
     var app = new Vue({
         el: '#root',
-        data : {post: {}, commentText: '', comments: []},
-        mounted(){
+        data : {post: null, commentText: '', comments: []},
+        created(){
             this.fetchPosts();
             this.fetchComments();
         },

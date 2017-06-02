@@ -24,3 +24,10 @@ li {
     display:inline;
     float:right;
 }
+
+.comments {
+    margin-left: 20px;
+    padding: 25px;
+    background: rgba(0, 0, 0, 0.02);
+    border-radius: 10px 10px 10px 10px;
+}
